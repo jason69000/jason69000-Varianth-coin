@@ -36,6 +36,7 @@ struct SharedBuffer {
   std::uint32_t read_index;
   std::uint8_t order_header_padding[56];
   std::array<OrderPacket, kQueueCapacity> queue;
+
   std::uint32_t depth_write_index;
   std::uint32_t depth_read_index;
   std::uint8_t depth_header_padding[56];
@@ -61,6 +62,7 @@ class MatchingEngine {
   void execute_trade(OrderPacket& incoming, OrderPacket& resting);
   void publish_depth(std::uint64_t price, std::uint8_t side);
   std::uint64_t level_quantity(std::uint64_t price, std::uint8_t side) const;
+
   SharedBuffer* shared_memory_;
   std::unordered_map<std::uint64_t, Account> accounts_;
   std::array<OrderPacket, 10000> bids_{};
